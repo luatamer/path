@@ -64,10 +64,10 @@ function path.is.file(filepath)
 end
 
 --[[
-NAME is.symLink
+NAME is.symlink
 DESCRIPTION
   filepath exists and is symbolic link    ]]
-function path.is.symLink(filepath)
+function path.is.symlink(filepath)
   return os.execute('test -L '..filepath)
 end
 

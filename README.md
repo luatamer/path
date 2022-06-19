@@ -48,7 +48,7 @@ filepath exists and is a filesytem file
 
 _____________________________________________________________________________
 
-### NAME is.symLink
+### NAME is.symlink
 #### DESCRIPTION
 filepath exists and is symbolic link
 
@@ -62,11 +62,11 @@ _____________________________________________________________________________
 
 ### NAME is.socket
 #### DESCRIPTION
-filepath exists and is character special
+filepath exists and is socket
 
 _____________________________________________________________________________
 
-### NAME is.chracter
+### NAME is.character
 #### DESCRIPTION
 filepath exists and is character special
 
