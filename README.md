@@ -10,9 +10,14 @@ Module depands on nix commands `test` and `realpath`
 There are tests for all commands. One test appears to fail even know the result is as
 expected. Still working on figuring that out; any help would be welcome.
 
+_____________________________________________________________________________
+
+# Disclaimer
+This is my first Lua program/module, well right after `Hello World`.
+Any suggestions are more then welcome.
+_____________________________________________________________________________
 
 # Documentation
-_____________________________________________________________________________
 
 ### NAME is.string
 #### DESCRIPTION
