@@ -9,9 +9,9 @@ path.list = list
 path.seperator = "/"
 
 --[[
-NAME isstring
+NAME is.string
 DESCRIPTION
-  filepath isstring
+  filepath is.string
   All args in this module must be a string, if unsure check first with isstring
 --]]
 function path.is.string(filepath)
@@ -40,16 +40,7 @@ function path.exists(filepath)
 end
 
 --[[
-NAME is
-DESCRIPTION
-  Alias of filepath exists
-function path.is(filepath)
-  return path.exists(filepath)
-end
-]]
-
---[[
-NAME is_dir
+NAME is.dir
 DESCRIPTION
   filepath exists and is a filesytem directory/folder    ]]
 function path.is.dir(filepath)
@@ -57,7 +48,7 @@ function path.is.dir(filepath)
 end
 
 --[[
-NAME is_folder
+NAME is.folder
 DESCRIPTION
   filepath exists and is a filesytem folder    ]]
 function path.is.folder(filepath)
@@ -65,7 +56,7 @@ function path.is.folder(filepath)
 end
 
 --[[
-NAME is_file
+NAME is.file
 DESCRIPTION
   filepath exists and is a filesytem file    ]]
 function path.is.file(filepath)
@@ -73,7 +64,7 @@ function path.is.file(filepath)
 end
 
 --[[
-NAME is_symLink
+NAME is.symLink
 DESCRIPTION
   filepath exists and is symbolic link    ]]
 function path.is.symLink(filepath)
@@ -81,7 +72,7 @@ function path.is.symLink(filepath)
 end
 
 --[[
-NAME is_pipe
+NAME is.pipe
 DESCRIPTION
   filepath exists and is a pipe    ]]
 function path.is.pipe(filepath)
@@ -89,7 +80,7 @@ function path.is.pipe(filepath)
 end
 
 --[[
-NAME is_socket
+NAME is.socket
 DESCRIPTION
   filepath exists and is character special    ]]
 function path.is.socket(filepath)
@@ -97,7 +88,7 @@ function path.is.socket(filepath)
 end
 
 --[[
-NAME is_chracter
+NAME is.chracter
 DESCRIPTION
   filepath exists and is character special    ]]
 function path.is.character(filepath)
@@ -105,7 +96,7 @@ function path.is.character(filepath)
 end
 
 --[[
-NAME isBlock
+NAME is.block
 DESCRIPTION
   filepath exists and is block special    ]]
 function path.is.block(filepath)
