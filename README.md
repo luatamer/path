@@ -11,6 +11,9 @@ There are tests for all commands. One test appears to fail even know the result 
 expected. Still working on figuring that out; any help would be welcome.
 
 
+# Documentation
+_____________________________________________________________________________
+
 ### NAME is.string
 #### DESCRIPTION
 filepath is.string
