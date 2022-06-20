@@ -77,9 +77,9 @@ local path = require('path')
 
 if path.is.dir(os.getenv("PWD"))
 then
-	print('INF Success')
+  print('INF Success')
 else
-	print('ERR Failed')
+  print('ERR Failed')
 end
 ```
 
@@ -89,9 +89,9 @@ local is = require('path').is
 
 if is.dir(os.getenv("PWD"))
 then
-	print('INF Success')
+  print('INF Success')
 else
-	print('ERR Failed')
+  print('ERR Failed')
 end
 ```
 
