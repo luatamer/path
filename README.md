@@ -29,7 +29,7 @@ bool = path.is.block(string)
 bool = path.can.read(string)
 bool = path.can.write(string)
 bool = path.can.run(string)
-bool = path.can.exec(string)
+bool = path.can.exec(string) // ALIAS OF can.run
 
 string = path.get.abs(string)
 string = path.get.dirname(string)
@@ -38,16 +38,16 @@ string = path.get.ext(string)
 
 table = path.list.all(string)
 table = path.list.folders(string)
-table = path.list.dirs(string)
+table = path.list.dirs(string) // ALIAS OF list.folders
 table = path.list.files(string)
 table = path.list.by_ext(filepath, ext)
 table = path.list.split(string)
 
-table = path.list.ext(string)
+table = path.list.ext(string) // maybe should be called list.fileexts
 
 bool = path.exists(string)
 string = path.append(filepath, file)
-string = path.split(string)
+string, string, string = path.split(string) // -> dir, file, ext
 string = path.realpath(string)
 ```
 
