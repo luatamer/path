@@ -103,6 +103,9 @@ function path.can.run(filepath)
   return os.execute('test -x '..filepath)
 end
 
+function path.can.exec(filepath)
+  return os.execute('test -x '..filepath)
+end
 
 -- Will return 3 items, works also on windows
 -- folder, filename, extention

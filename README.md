@@ -29,6 +29,7 @@ bool = path.is.block(string)
 bool = path.can.read(string)
 bool = path.can.write(string)
 bool = path.can.run(string)
+bool = path.can.exec(string)
 
 string = path.get.abs(string)
 string = path.get.dirname(string)
@@ -138,6 +139,13 @@ filepath exists and we can write to the filepath
 _____________________________________________________________________________
 
 ### NAME can.run
+#### DESCRIPTION
+filepath exists and we can run/execute the filepath
+
+_____________________________________________________________________________
+
+### NAME can.exec
+#### ALIAS of can.run
 #### DESCRIPTION
 filepath exists and we can run/execute the filepath
 
