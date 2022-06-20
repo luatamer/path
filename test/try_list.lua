@@ -1,4 +1,5 @@
 local pwd = os.getenv("PWD")
+local home = os.getenv("HOME")
 local path = require('path')
 
 
@@ -24,6 +25,14 @@ for key,value in pairs(f)
 do
    print(key, value)
 end
+
+local d = path.list.dirs(home)
+print('dirs: path.list.dirs(home)')
+for key,value in pairs(d)
+do
+   print(key, value)
+end
+
 
 local s = path.list.files(tmp)
 print('Files: path.list.files("/tmp")')

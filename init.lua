@@ -2,27 +2,51 @@ local path =  {}
 local is =  {}
 local can =  {}
 local list =  {}
+local get =  {}
 path.is = is
 path.can = can
 path.list = list
+path.get = get
 
 path.seperator = "/"
 
+--[[ Naming
+is returns bool
+can returns bool
+get returns string
+list returns table
+
+path.is.dir
+path.is.file
+
+path.get.abs --> file or dir as string
+path.get.dirname --> Last leaf of path
+path.get.filename --> full file name including extention
+path.get.ext --> File extention, return last extention as string
+
+
+path.list.dirname --> table of all leafs such as /usr/local/bin return {"user","local", "bin"}
+path.list.filename --> table of all leafs such as /usr/local/bin return {"user","local", "bin"}
+path.list.ext --> table of all extentions such file.tar.gs return {"tar","gz"}
+
+]]
+
+
+-- Template
 --[[
-NAME is.string
+NAME
+ALIAS
 DESCRIPTION
-  filepath is.string
-  All args in this module must be a string, if unsure check first with isstring
---]]
+ERROR
+EXAMPLE
+]]
+
+
+
 function path.is.string(filepath)
   if type(filepath)~="string" then return false end
 end
 
---[[
-NAME path.append
-DESCRIPTION
-  Adds path seperator if needed
---]]
 function path.append(filepath, file)
   if string.sub(filepath, -1) == "/"
   then
@@ -31,74 +55,38 @@ function path.append(filepath, file)
   return filepath..path.seperator..file
 end
 
---[[
-NAME exists
-DESCRIPTION
-  filepath exists    ]]
 function path.exists(filepath)
   return os.execute('test -e '..filepath)
 end
 
---[[
-NAME is.dir
-DESCRIPTION
-  filepath exists and is a filesytem directory/folder    ]]
 function path.is.dir(filepath)
   return os.execute('test -d '..filepath)
 end
 
---[[
-NAME is.folder
-DESCRIPTION
-  filepath exists and is a filesytem folder    ]]
 function path.is.folder(filepath)
   return os.execute('test -d '..filepath)
 end
 
---[[
-NAME is.file
-DESCRIPTION
-  filepath exists and is a filesytem file    ]]
 function path.is.file(filepath)
   return os.execute('test -f '..filepath)
 end
 
---[[
-NAME is.symlink
-DESCRIPTION
-  filepath exists and is symbolic link    ]]
 function path.is.symlink(filepath)
   return os.execute('test -L '..filepath)
 end
 
---[[
-NAME is.pipe
-DESCRIPTION
-  filepath exists and is a pipe    ]]
 function path.is.pipe(filepath)
   return os.execute('test -p '..filepath)
 end
 
---[[
-NAME is.socket
-DESCRIPTION
-  filepath exists and is character special    ]]
 function path.is.socket(filepath)
   return os.execute('test -S '..filepath)
 end
 
---[[
-NAME is.chracter
-DESCRIPTION
-  filepath exists and is character special    ]]
 function path.is.character(filepath)
   return os.execute('test -c '..filepath)
 end
 
---[[
-NAME is.block
-DESCRIPTION
-  filepath exists and is block special    ]]
 function path.is.block(filepath)
   return os.execute('test -b '..filepath)
 end
@@ -115,6 +103,58 @@ function path.can.run(filepath)
   return os.execute('test -x '..filepath)
 end
 
+
+-- Will return 3 items, works also on windows
+-- folder, filename, extention
+-- spilt("/tmp/test.lua.txt")
+-- -> /tmp/ test.lua.txt txt
+function path.split(filepath)
+  local d, n, x = string.match(filepath, "(.-)([^\\/]-%.?([^%.\\/]*))$")
+  if string.sub(d, -1) == "/"
+  then
+    d = string.sub(d, 0, string.len(d)-1)
+  end
+  return d, n, x
+end
+
+
+function path.get.dirname(filepath)
+  local str = path.get.abs(filepath)
+  local parts = path.list.split(str)
+  return parts[#parts]
+end
+
+function path.get.abs(filepath)
+  local p = path.realpath(filepath)
+  local result
+  if path.is.file(p)
+  then
+    result, _, _ = path.split(p)
+  elseif path.is.dir(p)
+  then
+    result = p
+  end
+  return result
+end
+
+
+function path.get.ext(filepath)
+  local result
+  if path.is.file(filepath)
+  then
+    _, _, result = path.split(filepath)
+  end
+  return result
+end
+
+function path.get.filename(filepath)
+  local result
+  if path.is.file(filepath)
+  then
+    _, result, _ = path.split(filepath)
+  end
+  return result
+end
 
 function path.list.all(filepath)
   local p = io.popen('ls -A '..filepath)
@@ -151,6 +191,10 @@ function path.list.folders(filepath)
   return file_pairs
 end
 
+function path.list.dirs(filepath)
+  return path.list.folders(filepath)
+end
+
 function path.list.by_ext(filepath, ext)
   local p = io.popen('ls -A '..filepath..'/*.'..ext)
   local file_pairs = {}
@@ -160,67 +204,37 @@ function path.list.by_ext(filepath, ext)
   return file_pairs
 end
 
--- Will return 3 items, works also on windows
--- folder, filename, extention
--- spilt("/tmp/test.lua.txt")
--- -> /tmp/ test.lua.txt txt
-function path.split(filepath)
-  local d, n, x = string.match(filepath, "(.-)([^\\/]-%.?([^%.\\/]*))$")
-  if string.sub(d, -1) == "/"
-  then
-    d = string.sub(d, 0, string.len(d)-1)
-  end
-  return d, n, x
-end
-
-function path.ext(filepath)
-  local result
-  if path.is.file(filepath)
-  then
-    _, _, result = path.split(filepath)
-  end
-  return result
+function split(str, pat)
+   local t = {}  -- NOTE: use {n = 0} in Lua-5.0
+   local fpat = "(.-)" .. pat
+   local last_end = 1
+   local s, e, cap = str:find(fpat, 1)
+   while s do
+      if s ~= 1 or cap ~= "" then
+         table.insert(t, cap)
+      end
+      last_end = e+1
+      s, e, cap = str:find(fpat, last_end)
+   end
+   if last_end <= #str then
+      cap = str:sub(last_end)
+      table.insert(t, cap)
+   end
+   return t
 end
 
 --[[
-NAME filename
-DESCRIPTION
-  returns filename including extention discarding folder/directory
-  Returned value will be a filesystem file OR NIL   ]]
-function path.filename(filepath)
-  local result
-  if path.is.file(filepath)
-  then
-    _, result, _ = split(filepath)
-  end
-  return result
+parts = split_path("/usr/local/bin")
+  --> {'usr','local','bin'}
+]]
+function path.list.split(filepath)
+   return split(filepath,'[\\/]+')
 end
 
+
 --[[
-NAME dirname
-DESCRIPTION
-  returns absolute directory/folder path discarding filename.
-  Returned value will be a filesystem directory/folder OR NIL   ]]
-function path.dirname(filepath)
-  local p = path.realpath(filepath)
-  print("Trying p: "..p)
-  local result
-  if path.is.file(p)
-  then
-    res, _, _ = path.split(p)
-    result = path.realpath(res)
-  elseif path.is.dir(p)
-  then
-    result = p
-  end
-  return result
-end
---[[
-NAME realpath
-DESCRIPTION
-  Print the resolved absolute file name; all but the last component must exist
-ERROR
-  realpath: [filepath]: No such file or directory     ]]
+Print the resolved absolute file name; all but the last component must exist
+realpath: [filepath]: No such file or directory     ]]
 function path.realpath(filepath)
   local handle = io.popen('realpath -ez '..filepath)
   local result = handle:read("*a")

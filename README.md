@@ -1,4 +1,5 @@
-# path
+Lua Path
+==========
 
 Currently works only on NIX (Linux, BSD, UNIX etc.)
 Maybe it will work on Mac since Mac is based on BSD, I have no way of testing.
@@ -12,13 +13,51 @@ expected. Still working on figuring that out; any help would be welcome.
 
 _____________________________________________________________________________
 
-# Disclaimer
+Cheatsheet
+==========
+
+```lua
+bool = path.is.dir(string)
+bool = path.is.folder(string)
+bool = path.is.file(string)
+bool = path.is.symlink(string)
+bool = path.is.pipe(string)
+bool = path.is.socket(string)
+bool = path.is.character(string)
+bool = path.is.block(string)
+
+bool = path.can.read(string)
+bool = path.can.write(string)
+bool = path.can.run(string)
+
+string = path.get.abs(string)
+string = path.get.dirname(string)
+string = path.get.filename(string)
+string = path.get.ext(string)
+
+table = path.list.all(string)
+table = path.list.folders(string)
+table = path.list.dirs(string)
+table = path.list.files(string)
+table = path.list.by_ext(filepath, ext)
+table = path.list.split(string)
+
+table = path.list.ext(string)
+
+bool = path.exists(string)
+string = path.append(filepath, file)
+string = path.split(string)
+string = path.realpath(string)
+```
+
+Disclaimer
+----------
 This is my first Lua program/module, well right after `Hello World`.
 Any suggestions are more then welcome.
 _____________________________________________________________________________
 
-# Documentation
-
+Documentation
+=============
 ### NAME is.string
 #### DESCRIPTION
 filepath is.string
@@ -122,7 +161,25 @@ list all files at given filepath by extention
 
 _____________________________________________________________________________
 
+### NAME list.ext
+#### DESCRIPTION
+list all file extentions
+
+#### EXAMPLE
+```
+path.list.ext('archive.tar.gz')
+--> {"tar", "gz"}
+```
+_____________________________________________________________________________
+
 ### NAME list.folders
+#### DESCRIPTION
+list all folders at given filepath
+
+_____________________________________________________________________________
+
+### NAME list.dirs
+#### ALIAS of list.folders
 #### DESCRIPTION
 list all folders at given filepath
 
@@ -131,31 +188,44 @@ _____________________________________________________________________________
 ### NAME path.split
 #### DESCRIPTION
 Will return 3 items, works also on windows
-folder, filename, extention
-path.spilt("/tmp/test.lua.txt")
--> /tmp/ test.lua.txt txt
+Does not verify paths existens
 
+#### EXAMPLE
+
+```
+string, string, string = path.spilt(string)
+folder, filename, extention = path.spilt("/tmp/test.lua.txt")
+-> /tmp/ test.lua.txt txt
+```
 _____________________________________________________________________________
 
-### NAME path.filename
+### NAME get.abs
 #### DESCRIPTION
 returns filename including extention discarding folder/directory
 Returned value will be a filesystem file OR NIL
 
 _____________________________________________________________________________
 
-### NAME path.ext
-#### DESCRIPTION
-Returns the file extention from the given filepath if exists
-
-_____________________________________________________________________________
-
-### NAME path.dirname
+### NAME get.dirname
 #### DESCRIPTION
 returns absolute directory/folder path discarding filename.
 Returned value will be a filesystem directory/folder OR NIL
 
 _____________________________________________________________________________
+
+### NAME get.filename
+#### DESCRIPTION
+returns filename including extention discarding folder/directory
+Returned value will be a filesystem file OR NIL
+
+_____________________________________________________________________________
+
+### NAME get.ext
+#### DESCRIPTION
+Returns the file extention from the given filepath if exists
+
+_____________________________________________________________________________
+
 
 ### NAME path.realpath
 #### DESCRIPTION
@@ -164,10 +234,4 @@ Print the resolved absolute file name; all but the last component must exist
 realpath: [filepath]: No such file or directory     ]]
 
 _____________________________________________________________________________
-
-
-
-
-
-
 
