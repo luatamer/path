@@ -58,6 +58,16 @@ This is my first Lua program/module, well right after `Hello World`.
 Any suggestions are more then welcome.
 _____________________________________________________________________________
 
+Installation
+============
+
+Run following in your Lua project folder.
+
+```git
+git clone https://github.com/luatamer/path.git
+```
+_____________________________________________________________________________
+
 Documentation
 =============
 ### NAME is.string
