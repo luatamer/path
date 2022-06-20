@@ -68,6 +68,35 @@ git clone https://github.com/luatamer/path.git
 ```
 _____________________________________________________________________________
 
+Usage
+=====
+
+Get all commands
+```lua
+local path = require('path')
+
+if path.is.dir(os.getenv("PWD"))
+then
+	print('INF Success')
+else
+	print('ERR Failed')
+end
+```
+
+Get only is commands
+```lua
+local is = require('path').is
+
+if is.dir(os.getenv("PWD"))
+then
+	print('INF Success')
+else
+	print('ERR Failed')
+end
+```
+
+_____________________________________________________________________________
+
 Documentation
 =============
 ### NAME is.string
