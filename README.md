@@ -43,7 +43,8 @@ table = path.list.files(string)
 table = path.list.by_ext(filepath, ext)
 table = path.list.split(string)
 
-table = path.list.ext(string) // maybe should be called list.fileexts
+table = path.list.ext(string)
+table = path.list.file_ext(string) // ALIAS OF list.ext
 
 bool = path.exists(string)
 string = path.append(filepath, file)

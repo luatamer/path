@@ -10,28 +10,6 @@ path.get = get
 
 path.seperator = "/"
 
---[[ Naming
-is returns bool
-can returns bool
-get returns string
-list returns table
-
-path.is.dir
-path.is.file
-
-path.get.abs --> file or dir as string
-path.get.dirname --> Last leaf of path
-path.get.filename --> full file name including extention
-path.get.ext --> File extention, return last extention as string
-
-
-path.list.dirname --> table of all leafs such as /usr/local/bin return {"user","local", "bin"}
-path.list.filename --> table of all leafs such as /usr/local/bin return {"user","local", "bin"}
-path.list.ext --> table of all extentions such file.tar.gs return {"tar","gz"}
-
-]]
-
-
 -- Template
 --[[
 NAME
@@ -40,8 +18,6 @@ DESCRIPTION
 ERROR
 EXAMPLE
 ]]
-
-
 
 function path.is.string(filepath)
   if type(filepath)~="string" then return false end
@@ -119,7 +95,6 @@ function path.split(filepath)
   end
   return d, n, x
 end
-
 
 function path.get.dirname(filepath)
   local str = path.get.abs(filepath)
@@ -208,7 +183,7 @@ function path.list.by_ext(filepath, ext)
 end
 
 function split(str, pat)
-   local t = {}  -- NOTE: use {n = 0} in Lua-5.0
+   local t = {}
    local fpat = "(.-)" .. pat
    local last_end = 1
    local s, e, cap = str:find(fpat, 1)
