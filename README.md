@@ -71,7 +71,7 @@ _____________________________________________________________________________
 Usage
 =====
 
-Get all commands
+Get all `path` commands
 ```lua
 local path = require('path')
 
@@ -83,7 +83,7 @@ else
 end
 ```
 
-Get only is commands
+Get only `is` commands
 ```lua
 local is = require('path').is
 
